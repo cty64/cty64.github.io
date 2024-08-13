@@ -65,15 +65,93 @@
             list-style: none;
             padding: 5px;
         }
-        #ul-items li {
-            width:100%
+            #ul-items li {
+                border: 1px solid #e3e1e1;
+                margin: 5px 0;
+                border-radius: 5px;
+                height: 70px;position:relative
+            }
+            #ul-items li p{margin:0}
+            .img-pr {
+                width: 60px;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 5px 0 0 5px;
+                float:left
+            }
+        .div-infor {
+            padding-left: 10px;
+            height: 70px;
+            display: table-cell;
+            vertical-align: middle;
         }
-        .img-pr{width:65px}
+        .p-price {
+            color:  #008000;
+        }
+        .span-plus{
+            position: absolute;
+            right: 15px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            height: 15px;
+            color: #008000;
+        }
+        #detail {
+            height: 100%;
+            position: fixed;
+            bottom: -100%;
+            background: #fff;
+            width: 100%;
+            transition-duration: 0.5s;
+        }
+        #detail-ct {
+            height: 90%;
+            bottom: 0;
+            width: 100%;
+        
+            
+        }
+        .show-detail {
+            bottom: 0 !important;
+            transition-duration: 0.5s;
+        }
+        #div-qlt {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+        }
+        .p-button {
+            background: #008000;
+            width: 88%;
+            margin: 10px auto;
+            color: #fff;
+            padding: 10px;
+        }
+        #imgdt {
+            width: 100%;
+            object-fit: cover;
+            height: 50%;
+        }
+        #pricedt {
+            color: #008000;font-weight:bold
+        }
+        .s-right{float:right}
+        .span-circle-icon {
+            background: #008000;
+            text-align: center;
+
+            position: relative;
+            padding: 5px 10px;
+            color: #fff;
+        }
+        
     </style>
 </head>
 <body>
  <p style="text-align:center;position:relative"><i class="fa fa-search" aria-hidden="true" style=" position: absolute; top: 10px; left: 30px;"></i>
-    <input type="text" class="ip-txt" placeholder="tìm kiếm sản phẩm" /></p>
+    <input type="text" class="ip-txt" placeholder="tìm kiếm sản phẩm" onkeyup="searchitemip(this)" /></p>
     <div class="shop-infor" style="height: 60px; position: relative; padding: 10px;">
         <img id="logoshop" src="https://raw.githubusercontent.com/cty64/medias/main/1722603232488.jpg" />
         <div id="h-infor" style="float:left">
@@ -89,17 +167,42 @@
         </ul>
     </div>
     <div id="total" style=" padding: 20px 10px;">
-        <span id="sumitem">13 sản phẩm</span>
+        <span id="sumitem">1 sản phẩm</span>
         <select id="sort">
             <option>Mới nhất</option>
             <option>Giá giảm dần</option>
             <option>Giá tăng dần</option>
         </select>
     </div>
-    <div id="items">
+    <div id="items" style=" border-top: 10px solid #dddbdb; margin-top: 15px;">
         <ul id="ul-items">
 
         </ul>
+    </div>
+    <div id="detail">
+        <p style="padding:10px">
+            <i class="fa fa-times" aria-hidden="true" style="color: #b1a8a8;" onclick='$("#detail").removeClass("show-detail");'></i> <span class="namedt" style="margin-left:10px"></span>
+            <span id="pricedt" class="s-right pricesp"></span>
+        </p>
+        <div id="detail-ct">
+            <img id="imgdt" />
+            <div id="desc" style=" padding: 15px;">
+
+            </div>
+        </div>
+        <div id="div-qlt">
+            <p class="calcu-main">
+                <span class="span-circle-icon iconleft span-circle-main" onclick="addfrommain(this)" obj="0"><i b-onb9jc4562="" class="fa fa-minus" aria-hidden="true"></i></span>
+                <span id="numqlt" class="numberqlts">1</span>
+                <span class="span-circle-icon iconright span-circle-main" onclick="addfrommain(this)" obj="1"><i b-onb9jc4562="" class="fa fa-plus" aria-hidden="true"></i></span>
+            </p>
+            <p>
+                <input type="text" placeholder="Ghi chú món" id="notemenu" class="width-90" style=" width: 90%; height: 30px; border-radius: 5px; border: 1px solid #000; padding-left: 10px;">
+            </p>
+            <p class="width-90 p-button" onclick="btnaddcard()" objact="act-li">
+                <span id="span-add">Thêm vào giỏ hàng</span><span class="s-right pricesp" id="span-tt">95.000đ</span>
+            </p>
+        </div>
     </div>
 </body>
 </html>

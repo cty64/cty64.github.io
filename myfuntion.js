@@ -1,15 +1,15 @@
 
-      function searchinput(o){alert(o)}
+
       function filterdata(o){
-        $('.btncate').removeClass('text-primary border-primary border-b-2');
-        $('.btn'+o).addClass('text-primary border-primary border-b-2');
-        if(o==0)
-        {
-          $('.itproduct').show();
-          return;
-        }
-        $('.itproduct').hide();
-        $('.cate-'+o).show();
+          $('.menu-item').removeClass('nav-active');
+          $(o).addClass('nav-active');
+          if ($(o).attr("idmenu")==0)
+          {
+              $('.item-pr').show();
+              return;
+          }
+        $('.item-pr').hide();
+          $('.menu' + $(o).attr("idmenu")).show();
       }
       function hideload(){ $("#loader").hide();}
       function base64(data){
@@ -97,17 +97,99 @@
         return str.replace(/ /g,"-");
 }
  function searchitemip(o){
-  var s=$('.serach-inp:eq(1)').val();
+     var s = $(o).val().toLowerCase();
+
   if(s=="")
-    $('.itproduct').show();
-  else{
-    $('.itproduct').hide();
+    $('.tem-pr').show();
+  else {
+
+    $('.item-pr').hide();
     var sunc=removeunicode(s);
-    $('.itproduct').each(function(){
-        if($(this).attr("nameunicode").search(sunc)!=-1)
+    $('.item-pr').each(function(){
+        if($(this).attr("nameobj").search(sunc)!=-1)
           $(this).show();
     })
   }
+}
+function converToString(nStr) {
+
+    try {
+
+        var t = nStr.toString();
+        var e = "";
+        var s = "";
+        var j = 0;
+
+        for (var i = t.length - 1; i >= 0; i--) {
+            if (j == 3) {
+                e += ".";
+                j = 0;
+            }
+            j++;
+            e += t.charAt(i);
+
+        }
+        for (var i = e.length - 1; i >= 0; i--) {
+
+            s += e.charAt(i);
+
+        }
+        return s;
+    }
+    catch (err) {
+        return "";
+    }
+}
+function truncateString(str, num) {
+    if (str.length > num) {
+        return str.slice(0, num) + "...";
+    } else {
+        return str;
+    }
+}
+function opendetail(o) {
+    $(".item-pr").removeClass("li-active");
+    $(o).addClass("li-active");
+    $("#imgdt").attr("src", $(o).find(".img-pr").attr("src"));
+    $("#detail").addClass("show-detail");
+    $(".pricesp").html(converToString($(o).attr("price")));
+    $(".namedt").html($(o).attr("namevn"));
+    $("#desc").html($(o).attr("desc"));
+}
+var ckcart = "cartlananh";
+function getCookie(t) {
+    var n = t + "="; let e = decodeURIComponent(document.cookie); var a = e.split(";");
+    for (let e = 0; e < a.length; e++) {
+        let t = a[e]; for (; " " == t.charAt(0);)t = t.substring(1); if (0 == t.indexOf(n))
+            return t.substring(n.length, t.length)
+    }
+    return ""
+}
+function setCookie(t, e, n) { const a = new Date; a.setTime(a.getTime() + 24 * n * 60 * 60 * 1e3); n = "expires=" + a.toUTCString(); document.cookie = t + "=" + e + ";" + n + ";path=/" } function gettime(t) { t = new Date(t); return t.getHours() + ":" + t.getMinutes() }
+function btnaddcard() {
+    var cart = getCookie(ckcart);
+    console.log(cart)
+    var carts = [];
+    var li = $('.li-active');
+    if (cart != "") {
+        carts = JSON.parse(cart);
+        $.each(carts, function (i, v) {
+            if (v.id == $(li).attr('idobj')) {
+                carts.slice(i,1)
+                return false;
+            }
+        })
+    }
+    var c = {
+            id: $(li).attr('idobj'),
+            price: $(li).attr('price'),
+            qlt: parseFloat($(".numberqlts").html()),
+            tt: parseFloat($(".numberqlts").html()) * parseFloat($(li).attr('price')),
+            notemenu: $("#notemenu").val()
+        };
+        carts.push(c);
+    setCookie(ckcart, JSON.stringify(carts),7)
+    console.log(carts);
 }
 $(document).ready(function () {
     $.get("https://raw.githubusercontent.com/cty64/haisanlananh/main/jslocations", function (data, status) {
@@ -125,16 +207,19 @@ $(document).ready(function () {
         $.each(datats, function (i, v) {
             var active = "menu-item";
             if (i == 0) active = "menu-item nav-active";
-            var li = "<li idmenu='" + v.id + "' class='" + active +"'><a href='#item"+v.id+"'>" + v.name + "</a></li>";
+            var li = "<li idmenu='" + v.id + "' class='" + active +"' onclick='filterdata(this)'>" + v.name + "</li>";
             $(li).appendTo("#menu-nav");
         })
     });
     $.get("https://raw.githubusercontent.com/cty64/haisanlananh/main/jsproduct", function (data, status) {
-        console.log(data)
+    
         var datats = JSON.parse(data);
+        $("#sumitem").html(datats.length + " sản phẩm");
         $.each(datats, function (i, v) {
-            var li = "<li idobj='" + v.id + "' class='menu" + v.idcate + "'>";
-            li += "<img class='img-pr' src='" + v.imgProduct +"' /></li>";
+            var li = "<li onclick='opendetail(this)' price='" + v.salePrice + "' desc='" + v.description+"' idobj='" + v.id + "' namevn='" + v.nameProduct +"' class='item-pr menu" + v.idcate + "' nameobj='" + removeunicode(v.nameProduct) +"'>";
+            li += "<img class='img-pr' src='" + v.imgProduct + "' />";
+            li += "<div class='div-infor'><p>" + v.nameProduct + "</p><p class='p-price'>" + converToString(v.salePrice) + "/" + v.unit + "</p><p>" + truncateString(v.description,40) +"</p></div><span class='span-plus'><i class='fa fa-plus' aria-hidden='true'></i></span>"
+            li += "</li> ";
             $(li).appendTo("#ul-items");
         })
     });

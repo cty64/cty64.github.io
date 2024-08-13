@@ -11,7 +11,8 @@ right: 0;
 margin: auto;
 bottom: 15px;
 }
-.nav-active a {
+
+.nav-active {
     color: #be0505;
 }
 .txtthank {
