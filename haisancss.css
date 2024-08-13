@@ -11,14 +11,17 @@ right: 0;
 margin: auto;
 bottom: 15px;
 }
-.txtthank{
-  position: absolute;
-top: 0;
-bottom: 0;
-margin: auto;
-height: fit-content;
-left: 0;
-right: 0;
+.nav-active a {
+    color: #be0505;
+}
+.txtthank {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: fit-content;
+    left: 0;
+    right: 0;
 }
 #notebill{background-color: #ffffff;
 border-radius: 8px;

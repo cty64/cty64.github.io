@@ -3,12 +3,103 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title></title>
+    <link rel="stylesheet" href="font-awesome.min.css">
+
     <link rel="stylesheet" href="haisancss.css">
     <script src="jquery.min.js"></script>
     <script src="myfuntion.js"></script>
+    <style>
+        body{margin:0}
+        .ip-txt {
+            width: 80%;
+            margin: auto;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid #d1c6c6;
+            padding-left: 40px;
+        }
+        #logoshop {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            float: left;
+            margin-right:20px
+        }
+        #h-infor p{
+            padding:2px;margin:0
+        }
+        a{
+            color:#000;text-decoration:none
+        }
+        #cart {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 20px;
+            height: 20px;
+        }
+        #menu-nav {
+            list-style: none;
+            width: 100%;
+            margin: 0;
+            padding: 10px 0;
+            overflow: auto;
+            white-space: nowrap;
+        }
+            #menu-nav li {
+                padding: 5px;
+                          display: inline-block;
+            }
+        #sort {
+            float: right;
+            height: 35px;
+            width: 200px;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+        #ul-items {
+            list-style: none;
+            padding: 5px;
+        }
+        #ul-items li {
+            width:100%
+        }
+        .img-pr{width:65px}
+    </style>
 </head>
 <body>
- 
+ <p style="text-align:center;position:relative"><i class="fa fa-search" aria-hidden="true" style=" position: absolute; top: 10px; left: 30px;"></i>
+    <input type="text" class="ip-txt" placeholder="tìm kiếm sản phẩm" /></p>
+    <div class="shop-infor" style="height: 60px; position: relative; padding: 10px;">
+        <img id="logoshop" src="https://raw.githubusercontent.com/cty64/medias/main/1722603232488.jpg" />
+        <div id="h-infor" style="float:left">
+            <p style="padding-top:0"><span id="nshop"></span></p>
+            <p><i class="fa fa-phone" aria-hidden="true"></i> <a id="a-phone" href="tel:"> <span id="pshop"></span></a></p>
+            <p><i class="fa fa-map-marker" aria-hidden="true"></i> <span id="ashop"></span></p>
+        </div>
+        <span id="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+    </div>
+    <div id="menu">
+        <ul id="menu-nav">
+           
+        </ul>
+    </div>
+    <div id="total" style=" padding: 20px 10px;">
+        <span id="sumitem">13 sản phẩm</span>
+        <select id="sort">
+            <option>Mới nhất</option>
+            <option>Giá giảm dần</option>
+            <option>Giá tăng dần</option>
+        </select>
+    </div>
+    <div id="items">
+        <ul id="ul-items">
+
+        </ul>
+    </div>
 </body>
 </html>

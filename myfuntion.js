@@ -110,7 +110,32 @@
   }
 }
 $(document).ready(function () {
+    $.get("https://raw.githubusercontent.com/cty64/haisanlananh/main/jslocations", function (data, status) {
+        var dshop = JSON.parse(data);
+      
+        $("#logoshop").attr("src", dshop.logo);
+        $("#nshop").html(dshop.shopname);
+        $("#pshop").html(dshop.phone);
+        $("#a-phone").attr("href", "tel:" + dshop.phone)
+        $("#ashop").html(dshop.address);
+    })
+    $.get("https://raw.githubusercontent.com/cty64/haisanlananh/main/jscategory", function (data, status) {
+       
+        var datats = JSON.parse(data);
+        $.each(datats, function (i, v) {
+            var active = "menu-item";
+            if (i == 0) active = "menu-item nav-active";
+            var li = "<li idmenu='" + v.id + "' class='" + active +"'><a href='#item"+v.id+"'>" + v.name + "</a></li>";
+            $(li).appendTo("#menu-nav");
+        })
+    });
     $.get("https://raw.githubusercontent.com/cty64/haisanlananh/main/jsproduct", function (data, status) {
         console.log(data)
+        var datats = JSON.parse(data);
+        $.each(datats, function (i, v) {
+            var li = "<li idobj='" + v.id + "' class='menu" + v.idcate + "'>";
+            li += "<img class='img-pr' src='" + v.imgProduct +"' /></li>";
+            $(li).appendTo("#ul-items");
+        })
     });
 })
